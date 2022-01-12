@@ -1,0 +1,23 @@
+<div class="pregame">
+    <p class="title"> Customise your adventure</p>
+    <br>
+    <p class="text">Exercise Type</p>
+    <select class="form-select form-select-lg mb-3 text" aria-label=".form-select-lg" (change)="getAvailableBodyPartNames($event)">
+        <option *ngFor="let exercise of exerciseTypes" [disabled]="exercise.disabled" [selected]="exercise.selected"
+            [value]="exercise.value">{{exercise.name}}</option>
+    </select>
+    <br>
+    <p class="text">Body Part</p>
+    <select class="form-select form-select-lg mb-3 text" aria-label=".form-select-lg">
+        <option *ngFor="let bodyPart of bodyParts" [disabled]="bodyPart.disabled" [selected]="bodyPart.selected"
+            [value]="bodyPart.value">{{bodyPart.name}}</option>
+    </select>
+    <br>
+    <p class="text">Exercise Time Length (in seconds)</p>
+    <input type="number" pattern="[0-9]+" class="text" value="{{exerciseTimeLength}}"/>
+    <br>
+    <p class="text">Recovery Time Length (in seconds)</p>
+    <input type="number" pattern="[0-9]+" class="text" value="{{recoveryTimeLength}}"/>
+    <br>
+    <button class="button text" (click)="navigate()">Start adventure</button>
+</div>

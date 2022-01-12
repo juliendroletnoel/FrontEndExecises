@@ -1,0 +1,10 @@
+.container{
+    background-image: url('../../static/island-hut.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.text{
+    font-family: cursive;
+    color: white;
+}

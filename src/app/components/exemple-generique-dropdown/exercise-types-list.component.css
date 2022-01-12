@@ -1,0 +1,12 @@
+.text{
+    color: wheat;
+    text-align: center;
+    text-emphasis: initial;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    font-family: cursive;
+}
+
+#selector{
+    cursor: pointer;
+}

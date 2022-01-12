@@ -1,0 +1,4 @@
+<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg" [formControl]="control">
+  <option *ngFor="let exercise of items" [disabled]="exercise.disabled" [value]="exercise.value">{{exercise.name}}</option>
+</select>
+
