@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { textChangeRangeIsUnchanged } from 'typescript';
 
 @Component({
   selector: 'app-game',
@@ -22,15 +21,17 @@ export class GameComponent implements OnInit {
         this._elapsedTime++;
         this.displayedTime = "";
         let minutes = Math.floor(this._elapsedTime / 60);
+        
         if (minutes < 10){
           this.displayedTime = "0";
         }
-        this.displayedTime+= minutes + " : ";
 
+        this.displayedTime += minutes + " : ";
+        
         let seconds = this._elapsedTime - (minutes * 60)
 
         if(seconds < 10){
-          this.displayedTime = "0";
+          this.displayedTime += "0";
         }
 
         this.displayedTime+=seconds;
@@ -38,7 +39,9 @@ export class GameComponent implements OnInit {
       }, 1000);
   }
 
+  public startGatheringActivity(resourceType: string){
 
+  }
 
 
 

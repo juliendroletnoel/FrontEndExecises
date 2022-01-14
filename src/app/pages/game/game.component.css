@@ -1,7 +1,10 @@
 .container{
     background-image: url('../../static/island-hut.jpg');
     background-position: center;
+    background-size: cover;
     background-repeat: no-repeat;
+    height: 80vh;
+    width: 1000px;
 }
 
 .text{

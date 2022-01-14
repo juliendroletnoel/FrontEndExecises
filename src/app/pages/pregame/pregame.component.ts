@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { ExercisesService } from 'src/app/services/exercises/exercises.service';
+import { GameSettingsService } from 'src/app/services/GameSettings/game-settings.service';
+import { GameSettings } from 'src/app/services/GameSettings/GameSettings';
 
 @Component({
   selector: 'app-pregame',
@@ -14,18 +16,24 @@ export class PregameComponent implements OnInit {
   public bodyParts: {value: string, name:string, selected:boolean, disabled:boolean} [] = []
   public exerciseTimeLength: number = 60;
   public recoveryTimeLength: number = 20;
+  public gameSettings: GameSettings;
+  public test: string = "";
 
   private _router : Router;
+  private _gameSettingsService: GameSettingsService
 
-  constructor(private _exercisesServices: ExercisesService, 
+  constructor(private _exercisesService: ExercisesService,
+              private _gameSettingsInjected: GameSettingsService, 
               private _injectedRouter: Router) 
             { 
                   this._router = _injectedRouter;
+                  this._gameSettingsService = _gameSettingsInjected;
+                  this.gameSettings = new GameSettings();
             }
 
   ngOnInit(): void {
     // Fill exercises types
-    this._exercisesServices.getExerciseTypeNames()
+    this._exercisesService.getExerciseTypeNames()
     .subscribe(data => {
 
       this.bodyParts.push({value:"", name:"Select an exercise type", selected:true, disabled:true});
@@ -49,7 +57,7 @@ export class PregameComponent implements OnInit {
   public getAvailableBodyPartNames(event: Event){
 
     let exerciseType = (event.target as HTMLInputElement).value;
-    this._exercisesServices.getAvailableBodyParts(exerciseType)
+    this._exercisesService.getAvailableBodyParts(exerciseType)
     .subscribe(data =>
        {
           this.bodyParts = []
@@ -77,5 +85,9 @@ export class PregameComponent implements OnInit {
 
   public navigate(){
     this._router.navigate(['game/']);
+  }
+
+  public saveGameSettings(){
+    this._gameSettingsService.SaveGameSettings(this.gameSettings);
   }
 }

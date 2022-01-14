@@ -8,6 +8,7 @@ import { MenuModule } from './modules/menu/menu.module';
 import { PregameModule } from './modules/pregame/pregame.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { GameModule } from './modules/game/game.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { GameModule } from './modules/game/game.module';
     GameModule,
     HttpClientModule,
     NgbModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
