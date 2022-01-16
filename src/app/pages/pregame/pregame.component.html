@@ -9,16 +9,16 @@
     </select>
     <br>
     <p class="text">Body Part</p>
-    <select class="form-select form-select-lg mb-3 text" aria-label=".form-select-lg" required (ngModel)="gameSettings.bodyPartName" name="bodyPartName">
+    <select class="form-select form-select-lg mb-3 text" aria-label=".form-select-lg" required [(ngModel)]="gameSettings.bodyPartName" name="bodyPartName">
         <option id="bodyPart" *ngFor="let bodyPart of bodyParts" [disabled]="bodyPart.disabled" [selected]="bodyPart.selected"
             [value]="bodyPart.value" >{{bodyPart.name}}</option>
     </select>
     <br>
     <p class="text">Exercise Time Length (in seconds)</p>
-    <input id="exerciseTime" [(ngModel)]="gameSettings.exerciseTimeLength" name="exerciseTimeLength" type="number" pattern="[0-9]+" class="text" required />
+    <input id="exerciseTime" type="number" [(ngModel)]="gameSettings.exerciseTimeLength" name="exerciseTimeLength"  pattern="[0-9]+" class="text" required />
     <br>
     <p class="text">Recovery Time Length (in seconds)</p>
-    <input id="recoveryTime" type="number" pattern="[0-9]+" class="text" [(ngModel)]="gameSettings.recoveryTimeLength" name="recoveryTimeLength" required />
+    <input id="recoveryTime" type="number" [(ngModel)]="gameSettings.recoveryTimeLength" name="recoveryTimeLength" pattern="[0-9]+" class="text" required />
     <br>
     <button class="button text" (click)="navigate(); saveGameSettings()">Start adventure</button>
 </div>

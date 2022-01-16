@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs'
+import { ExerciseContract } from './ExerciseContract';
 
 @Injectable({
   providedIn: 'any',
@@ -24,12 +25,16 @@ export class ExercisesService {
     return this.http.get<string[]>(`${this._baseUrl}/bodyparts?exercisetypeparam=${exerciseTypeName}`)
   }
 
-  getExercises(exerciseTypeName: string, bodyPartName: string, nbExercises: number): Observable<any[]>{
+  getExercises(exerciseTypeName: string, bodyPartName: string, nbExercises: number): Observable<any>{
     
     if (nbExercises == NaN){
       nbExercises = 3;
     }
     
-    return this.http.get<any[]>(`${this._baseUrl}/gather?exercisetypeparam=${exerciseTypeName}&bodypartparam=${bodyPartName}&nbexercisesparam=${nbExercises}`);
+    return this.http.get<any>(`${this._baseUrl}/exercises?exercisetypeparam=${exerciseTypeName}&bodypartparam=${bodyPartName}&nbexercisesparam=${nbExercises}`);
+  }
+
+  getGatheringResult(resourceName: string, nbRepetitions: number): Observable<any>{
+    return this.http.get<any>(`${this._baseUrl}/gatherresults?resourcenameparam=${resourceName}&exerciserepetitionsparam=${nbRepetitions}`);
   }
 }

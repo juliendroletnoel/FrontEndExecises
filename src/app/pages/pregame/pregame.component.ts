@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { ExercisesService } from 'src/app/services/exercises/exercises.service';
 import { GameSettingsService } from 'src/app/services/GameSettings/game-settings.service';
-import { GameSettings } from 'src/app/services/GameSettings/GameSettings';
+import { GameSettingsContract } from 'src/app/services/GameSettings/GameSettingsContract';
 
 @Component({
   selector: 'app-pregame',
@@ -16,7 +16,7 @@ export class PregameComponent implements OnInit {
   public bodyParts: {value: string, name:string, selected:boolean, disabled:boolean} [] = []
   public exerciseTimeLength: number = 60;
   public recoveryTimeLength: number = 20;
-  public gameSettings: GameSettings;
+  public gameSettings: GameSettingsContract;
   public test: string = "";
 
   private _router : Router;
@@ -28,7 +28,7 @@ export class PregameComponent implements OnInit {
             { 
                   this._router = _injectedRouter;
                   this._gameSettingsService = _gameSettingsInjected;
-                  this.gameSettings = new GameSettings();
+                  this.gameSettings = new GameSettingsContract();
             }
 
   ngOnInit(): void {

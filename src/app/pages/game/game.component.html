@@ -1,19 +1,31 @@
 <div class="container">
     <p class="title text">Leave the Deserted Island</p>
     <br>
-    <div class="text">Elapsed time 
-        <p class="time">{{displayedTime}}</p>
-    </div>
+    <div class="text time">Elapsed time {{displayedTime}} </div>
     <br>
+    <div class="text">
+        <p class="time" [hidden]="displayedExerciseTime==''">Exercise time : {{displayedExerciseTime}} <br> </p>
+        <p class="time" [hidden]="displayedRecoveryTime==''">Recovery time : {{displayedRecoveryTime}} <br> </p>
+    </div>
     <p class="text">Activities</p>
-    <button class="button">Gather Food</button>
-    <button class="button">Gather Water</button>
+    <button class="button" *ngFor="let res of resources" (click)="getExercises(res)" >Gather {{res}}</button>
     <button class="button">Build Raft</button>
     <br>
-    <div class="text"> Exercises
-        <span class="text"></span>
+
+    <div class="form-select text" [hidden]="exercises.length==0"> Resources <br>
+        <div class="text" *ngFor="let ex of exercises">
+            <input type="radio" name="exerciseselection" id="exercise_{{ex.id}}" [value]="ex.name">
+            <label for="exercise_{{ex.id}}"> {{ex.name}}<br></label>
+        </div>
+    </div>
+    <button class="button" [hidden]="exercises.length==0" (click)="startGatheringExercise()">Start gathering resources</button>
+    <div class="text" [hidden]="!exerciseCompleted">
+        <span>Number of repetitions</span>
+        <input (change)="setNbRepetitions($event)" type="number"pattern="[0-9]+" class="text" required />
+        <br>
+        <button class="button" (click)="submitRepetitions()">Submit</button>
     </div>
     <div class="text">Bag of items
-        <p>0 : 70 items</p>
+        <p>{{nbResources}} : 70 items</p>
     </div>
 </div>

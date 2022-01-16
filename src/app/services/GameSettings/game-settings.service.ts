@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { GameSettings } from './GameSettings'
+import { GameSettingsContract } from './GameSettingsContract'
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameSettingsService {
 
-  private _gameSettings: GameSettings;
+  private _gameSettings: GameSettingsContract;
 
   constructor() { 
-    this._gameSettings = new GameSettings();
+    this._gameSettings = new GameSettingsContract();
   }
 
-  public SaveGameSettings(settings: GameSettings){
+  public SaveGameSettings(settings: GameSettingsContract){
     this._gameSettings = settings;
   }
 

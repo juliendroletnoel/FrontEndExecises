@@ -1,5 +1,6 @@
 .container{
-    background-image: url('../../static/island-hut.jpg');
+    /* background-image: url('../../static/island-hut.jpg'); */
+    background-color: black;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
