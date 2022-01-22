@@ -3,6 +3,7 @@ import { Router } from '@angular/router'
 import { ExercisesService } from 'src/app/services/exercises/exercises.service';
 import { GameSettingsService } from 'src/app/services/GameSettings/game-settings.service';
 import { GameSettingsContract } from 'src/app/services/GameSettings/GameSettingsContract';
+import { NumberLiteralType } from 'typescript';
 
 @Component({
   selector: 'app-pregame',
@@ -17,7 +18,6 @@ export class PregameComponent implements OnInit {
   public exerciseTimeLength: number = 60;
   public recoveryTimeLength: number = 20;
   public gameSettings: GameSettingsContract;
-  public test: string = "";
 
   private _router : Router;
   private _gameSettingsService: GameSettingsService
@@ -36,8 +36,6 @@ export class PregameComponent implements OnInit {
     this._exercisesService.getExerciseTypeNames()
     .subscribe(data => {
 
-      this.bodyParts.push({value:"", name:"Select an exercise type", selected:true, disabled:true});
-
       // add default text option
       let name = "Select an exercise type";
       this.exerciseTypes.push({value: "", name: name, selected: true, disabled: true});
@@ -50,24 +48,18 @@ export class PregameComponent implements OnInit {
     });
   }
 
-  onChangeExercice(e: any){
-    console.log(e);
-  }
-
   public getAvailableBodyPartNames(event: Event){
 
-    let exerciseType = (event.target as HTMLInputElement).value;
+    this.gameSettings.bodyPartNames = [];
+    
+    const exerciseType = (event.target as HTMLInputElement).value;
     this._exercisesService.getAvailableBodyParts(exerciseType)
     .subscribe(data =>
        {
           this.bodyParts = []
 
-          // add default exception
-          let name = "Select a body part";
-          this.bodyParts.push({value:"", name, selected:true, disabled:true});
-       
           data.forEach(value => {
-            name = value[0].toUpperCase() + value.slice(1);
+            let name = value[0].toUpperCase() + value.slice(1);
             this.bodyParts.push({value, name, selected:false, disabled:false});
           });
         });
@@ -84,10 +76,35 @@ export class PregameComponent implements OnInit {
   }
 
   public navigate(){
-    this._router.navigate(['game/']);
+
+    const nbBodyPartSelected = this.gameSettings.bodyPartNames.length;
+
+    if(nbBodyPartSelected == 0){
+      alert('You must select at least one body part to focus on!');
+    }
+    
+    else{
+      this._router.navigate(['game/']);
+    }
+    
   }
 
   public saveGameSettings(){
     this._gameSettingsService.SaveGameSettings(this.gameSettings);
+  }
+
+  public onBodyPartCheckEvent(event: Event){
+    const bodyPart = (event.target as HTMLInputElement).value;
+    
+    if(this.gameSettings.bodyPartNames.includes(bodyPart)){
+      const index = this.gameSettings.bodyPartNames.indexOf(bodyPart);
+      this.gameSettings.bodyPartNames.splice(index,1);
+    }
+
+    else{
+      this.gameSettings.bodyPartNames.push(bodyPart);
+    }
+
+    console.log(this.gameSettings.bodyPartNames);
   }
 }

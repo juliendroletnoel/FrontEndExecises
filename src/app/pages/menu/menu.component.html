@@ -1,14 +1,41 @@
-<div class="menu">
-    <br>
-    <p class="text">The Deserted Island proposes a Challenge</p>
-    <p class="text">where a player must overcome a serie of</p>
-    <p class="text">exercises to simulate survival activities.</p>
-    <br>
-    <p class="text">By realizing execises, resources are gathered,</p>
-    <p class="text">allowing the player to possibly reach the Final Goal:</p>
-    <br>
-    <p class="text big">Leave the Deserted Island!</p>
-    <br>
-    <button (click)="navigate()"> Start Game</button>
+<div class="main">
+    <div class="picture">
+        <marquee behavior="scroll" direction="up" scrollamount="2" [height]="850">
+            <p class="text">The Deserted Island...</p>
+            <br>
+            <br>
+            <br>
+            <p class="text">You wake up on the shore of a deserted island.</p>
+            <br>
+            <br>
+            <br>
+            <p class="text">There is nothing but the beach, the forest</p>
+            <p class="text">and the endless sea.</p>
+            <br>
+            <br>
+            <p class="text">But you have with you:</p>
+            <br>
+            <p class="text">Courage,</p>
+            <p class="text">Persistance and</p>
+            <p class="text">Determination</p>
+            <br>
+            <br>
+            <br>
+            <p class="text">Perform exercises to collect useful resources.</p>
+            <p class="text">They will allow you to reach the goal of this Journey:</p>
+            <br>
+            <br>
+            <p class="text big">Leave the Deserted Island!</p>
+            <br>
+        </marquee>
+    </div>
+    <button type="button" class="btn btn-outline-dark button" (click)="navigate()">Start Game</button>
+
+    <audio controls>
+        <source src="assets/musics/ambiance-calm-ocean.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 </div>
+
+
 

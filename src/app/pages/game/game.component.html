@@ -8,8 +8,8 @@
         <p class="time" [hidden]="displayedRecoveryTime==''">Recovery time : {{displayedRecoveryTime}} <br> </p>
     </div>
     <p class="text">Activities</p>
-    <button class="button" *ngFor="let res of resources" (click)="getExercises(res)" >Gather {{res}}</button>
-    <button class="button">Build Raft</button>
+    <button class="btn btn-outline-dark button" *ngFor="let res of resources" (click)="getExercises(res)" >Gather {{res}}</button>
+    <button class="btn btn-outline-dark button">Build Raft</button>
     <br>
 
     <div class="form-select text" [hidden]="exercises.length==0"> Resources <br>

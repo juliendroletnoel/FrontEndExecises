@@ -14,3 +14,37 @@
 .text{
     font-family:cursive;
 }
+
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button{
+    margin: 5px;
+}
+
+.input{
+    width: 15%;
+    margin:10px;
+}
+
+.label{
+    margin-left: 5px;
+}
+
+.table{
+    display:table;
+    width: 90%;
+}
+
+.cell{
+    display:table-cell;
+    margin: 5px;
+}
+
+inputs{
+    display:block;
+    align-items: center;
+}

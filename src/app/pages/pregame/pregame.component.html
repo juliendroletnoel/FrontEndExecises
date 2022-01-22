@@ -1,24 +1,39 @@
 
-<div class="pregame form-group">
-    <p class="title"> Customise your adventure</p>
-    <br>
-    <p class="text">Exercise Type</p>
-    <select class="form-select-lg mb-3 text" required aria-label=".form-select-lg" (change)="getAvailableBodyPartNames($event)" name="exerciseTypeName" [(ngModel)]="gameSettings.exerciseTypeName">
-        <option *ngFor="let exercise of exerciseTypes" [disabled]="exercise.disabled" [selected]="exercise.selected"
-            [value]="exercise.value">{{exercise.name}}</option>
-    </select>
-    <br>
-    <p class="text">Body Part</p>
-    <select class="form-select form-select-lg mb-3 text" aria-label=".form-select-lg" required [(ngModel)]="gameSettings.bodyPartName" name="bodyPartName">
-        <option id="bodyPart" *ngFor="let bodyPart of bodyParts" [disabled]="bodyPart.disabled" [selected]="bodyPart.selected"
-            [value]="bodyPart.value" >{{bodyPart.name}}</option>
-    </select>
-    <br>
-    <p class="text">Exercise Time Length (in seconds)</p>
-    <input id="exerciseTime" type="number" [(ngModel)]="gameSettings.exerciseTimeLength" name="exerciseTimeLength"  pattern="[0-9]+" class="text" required />
-    <br>
-    <p class="text">Recovery Time Length (in seconds)</p>
-    <input id="recoveryTime" type="number" [(ngModel)]="gameSettings.recoveryTimeLength" name="recoveryTimeLength" pattern="[0-9]+" class="text" required />
-    <br>
-    <button class="button text" (click)="navigate(); saveGameSettings()">Start adventure</button>
+<div class="main">
+    <div class="pregame form-group">
+        <br>
+        <h2>Create your adventure</h2>
+        <br>
+        <p class="text">Select a workout focus</p>
+        <select (change)="getAvailableBodyPartNames($event)" class="btn btn-secondary dropdown-toggle" required aria-label=".form-select-lg" name="exerciseTypeName" [(ngModel)]="gameSettings.exerciseTypeName">
+            <option *ngFor="let exercise of exerciseTypes" [disabled]="exercise.disabled" [selected]="exercise.selected"
+                [value]="exercise.value">{{exercise.name}}</option>
+        </select>
+        <br>
+        <p class="text" [hidden]="bodyParts.length==0">Focus on</p>
+        <div class="table">
+            <div class="cell" *ngFor="let b of bodyParts">
+                <input type="checkbox" id="{{b.value}}" [value]="b.value" (change)="onBodyPartCheckEvent($event)">
+                <label for="{{b.value}}" class="label"> {{b.name}}<br></label>
+            </div>
+        </div>
+
+        <!-- <div *ngFor="let i of nbBodyPartSelector">
+            <select class="btn btn-secondary dropdown-toggle button" aria-label=".form-select-lg" (change)="setBodyPartSelection($event)" required>
+                <option *ngFor="let bodyPart of bodyParts" [disabled]="bodyPart.disabled" [selected]="bodyPart.selected"
+                    [value]="bodyPart.value">{{bodyPart.name}}</option>
+            </select>
+            <button (click)="addBodyPartSelector()" class="btn btn-secondary button" aria-label=".form-select-lg" [hidden]="i==0"> + </button>
+        </div> -->
+        <div class="inputs">
+            <label class="text" for="exerciseTime">Exercise Time Length (in seconds)</label>
+            <input id="exerciseTime" type="number" [(ngModel)]="gameSettings.exerciseTimeLength" name="exerciseTimeLength"  pattern="[0-9]+" class="input" required />
+            <br>
+            <label class="text" for="recoveryTime">Recovery Time Length (in seconds)</label>
+            <input id="recoveryTime" type="number" [(ngModel)]="gameSettings.recoveryTimeLength" name="recoveryTimeLength" pattern="[0-9]+" class="input" required />
+            <br>
+        </div>
+    </div>
+
+    <button class="btn btn-outline-dark" (click)="navigate(); saveGameSettings()">Start adventure</button>
 </div>
