@@ -51,9 +51,9 @@ export class GameComponent implements OnInit {
   public getExercises(resourceName: string){
 
     this.selectedResource = resourceName
-    let exerciseTypeName = this._gameSettings.exerciseTypeName;
-    let bodyPartName = this._gameSettings.bodyPartNames;
-    this._injectedService.getExercises(exerciseTypeName, "", 3)
+    const exerciseTypeName = this._gameSettings.exerciseTypeName;
+    const bodyPartNames = this._gameSettings.bodyPartNames;
+    this._injectedService.getExercises(exerciseTypeName, bodyPartNames, 3)
     .subscribe(data => {
       this.exercises = [];
 
