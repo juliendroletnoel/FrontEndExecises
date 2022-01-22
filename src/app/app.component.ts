@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MusicSettingsService } from './services/MusicSettings/music-settings.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'FrontEndExercises';
+  public title = 'FrontEndExercises';
+  private _musicService: MusicSettingsService;
+
+  public constructor(musicService: MusicSettingsService){
+    this._musicService = musicService;
+  }
+
+  public toggleMusic(){
+    this._musicService.toggleMusic();
+  }
 }

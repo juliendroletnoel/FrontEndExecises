@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GameSettingsService } from '../../services/GameSettings/game-settings.service';
 import { GameSettingsContract } from '../../services/GameSettings/GameSettingsContract';
 import { ExercisesService } from '../../services/exercises/exercises.service';
+import { MusicSettingsService } from 'src/app/services/MusicSettings/music-settings.service';
 
 @Component({
   selector: 'app-game',
@@ -31,10 +32,14 @@ export class GameComponent implements OnInit {
   // TODO: set as game variable
   public resources = ['Water', 'Food'];
 
+  private _musicSettingsService : MusicSettingsService;
+
   constructor(private _gameSettingsService: GameSettingsService,
-              private _injectedService: ExercisesService) { 
+              private _injectedService: ExercisesService,
+              musicSettingsService: MusicSettingsService) { 
     this._gameSettings = _gameSettingsService.LoadGameSettings();
     this._service = _injectedService;
+    this._musicSettingsService = musicSettingsService;
   }
 
   ngOnInit(): void {
@@ -68,6 +73,7 @@ export class GameComponent implements OnInit {
     this._recoveryTime = 0;
     this._exerciseTime = this._gameSettings.exerciseTimeLength;
     
+    this._musicSettingsService.setCurrentAmbianceMusic('ambiance-beats-drums');
     let id = setInterval(() => 
     {
       this._exerciseTime --;
@@ -77,6 +83,7 @@ export class GameComponent implements OnInit {
         this.displayedExerciseTime = "";
         clearInterval(id);
         this.exerciseCompleted = true;
+        this._musicSettingsService.setCurrentAmbianceMusic('ambiance-beat-electronic-drums');
         this.startRecoveryTimer();
       }
     }, 1000);

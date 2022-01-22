@@ -3,6 +3,7 @@ import { Router } from '@angular/router'
 import { ExercisesService } from 'src/app/services/exercises/exercises.service';
 import { GameSettingsService } from 'src/app/services/GameSettings/game-settings.service';
 import { GameSettingsContract } from 'src/app/services/GameSettings/GameSettingsContract';
+import { MusicSettingsService } from 'src/app/services/MusicSettings/music-settings.service';
 import { NumberLiteralType } from 'typescript';
 
 @Component({
@@ -15,23 +16,33 @@ export class PregameComponent implements OnInit {
 
   public exerciseTypes: {value: string, name:string, selected:boolean, disabled:boolean} [] = [];
   public bodyParts: {value: string, name:string, selected:boolean, disabled:boolean} [] = []
-  public exerciseTimeLength: number = 60;
-  public recoveryTimeLength: number = 20;
   public gameSettings: GameSettingsContract;
 
   private _router : Router;
   private _gameSettingsService: GameSettingsService
+  private _exercisesService : ExercisesService;
+  private _musicSettingsService : MusicSettingsService;
 
-  constructor(private _exercisesService: ExercisesService,
-              private _gameSettingsInjected: GameSettingsService, 
-              private _injectedRouter: Router) 
+  private _oceanAmbiance;
+
+  constructor(exercisesService: ExercisesService,
+              gameSettingsService: GameSettingsService, 
+              routerService: Router,
+              musicSettingsService : MusicSettingsService) 
             { 
-                  this._router = _injectedRouter;
-                  this._gameSettingsService = _gameSettingsInjected;
+                  this._router = routerService;
+                  this._gameSettingsService = gameSettingsService;
+                  this._exercisesService = exercisesService;
                   this.gameSettings = new GameSettingsContract();
+                  this._oceanAmbiance = new Audio('/assets/musics/ambiance-beat-electronic-drums.mp3');
+                  this._oceanAmbiance.volume = 0.5;
+                  this._oceanAmbiance.loop = true;
+                  this._musicSettingsService = musicSettingsService;
             }
 
   ngOnInit(): void {
+
+    this._musicSettingsService.setCurrentAmbianceMusic('ambiance-beat-electronic-drums');
     // Fill exercises types
     this._exercisesService.getExerciseTypeNames()
     .subscribe(data => {
@@ -66,13 +77,11 @@ export class PregameComponent implements OnInit {
   }
 
   public setExerciseTimeLength(event: Event){
-    this.exerciseTimeLength = parseInt((event.target as HTMLInputElement).value);
-    console.log('Exercise time length : ' + this.exerciseTimeLength);
+    this.gameSettings.exerciseTimeLength = parseInt((event.target as HTMLInputElement).value);
   }
 
   public setRecoveryTimeLength(event: Event){
-    this.recoveryTimeLength = parseInt((event.target as HTMLInputElement).value);
-    console.log('Recovery time length : ' + this.recoveryTimeLength);
+    this.gameSettings.recoveryTimeLength = parseInt((event.target as HTMLInputElement).value);
   }
 
   public navigate(){
@@ -104,7 +113,5 @@ export class PregameComponent implements OnInit {
     else{
       this.gameSettings.bodyPartNames.push(bodyPart);
     }
-
-    console.log(this.gameSettings.bodyPartNames);
   }
 }
